@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Student Result</title>
+    <style>
+        /* Center align elements */
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #f0e5e5;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+        }
+
+        .details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .details p {
+            margin: 0;
+            padding: 5px;
+            flex-basis: calc(50% - 10px);
+        }
+
+        .result-table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .result-table th,
+        .result-table td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .result-table th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .result-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+        }
+
+        .result p {
+            font-weight: bold;
+            margin: 0;
+            padding: 5px;
+        }
+
+        .pass {
+            color: #008000;
+        }
+
+        .fail {
+            color: #FF0000;
+        }
+
+        .buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .buttons button:hover {
+            background-color: #0056b3;
+        }
+
+        .back-button {
+            padding: 10px 20px;
+            background-color: #ccc;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            /* Remove underline for anchor element */
+        }
+
+        .back-button:hover {
+            background-color: #999;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Student Result</h1>
+        </div>
+        <div class="details">
+            <p><strong>College Name:</strong> {{ student.college_name }}</p>
+            <p><strong>Name:</strong> {{ student.name }}</p>
+            <p><strong>Branch:</strong> {{ student.branch }}</p>
+            <p><strong>Stream:</strong> {{ student.stream }}</p>
+            <p><strong>Semester:</strong> {{ student.semester }}</p>
+            <p><strong>Date:</strong> {{ student.date }}</p>
+        </div>
+        <table class="result-table">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Marks</th>
+                    <th>Pass/Fail</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Add a row for each subject -->
+                <tr>
+                    <td>Resource Methodology </td>
+                    <td>{{ student.subject1 }}</td>
+                    <td>{% if student.subject1 > 35 %} Pass {% else %} Fail {% endif %}</td>
+                </tr>
+                <tr>
+                    <td>Cloud Native Develops</td>
+                    <td>{{ student.subject2 }}</td>
+                    <td>{% if student.subject2 > 35 %} Pass {% else %} Fail {% endif %}</td>
+                </tr>
+                <tr>
+                    <td>Software Architecture Patterns</td>
+                    <td>{{ student.subject3 }}</td>
+                    <td>{% if student.subject3 > 35 %} Pass {% else %} Fail {% endif %}</td>
+                </tr>
+                <tr>
+                    <td>Software Project Management</td>
+                    <td>{{ student.subject4 }}</td>
+                    <td>{% if student.subject4 > 35 %} Pass {% else %} Fail {% endif %}</td>
+                </tr>
+                <tr>
+                    <td>Api Development Lab</td>
+                    <td>{{ student.subject5 }}</td>
+                    <td>{% if student.subject5 > 35 %} Pass {% else %} Fail {% endif %}</td>
+                </tr>
+                <tr>
+                    <td>Professional Skills Development</td>
+                    <td>{{ student.subject6 }}</td>
+                    <td>{% if student.subject6 > 35 %} Pass {% else %} Fail {% endif %}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="result">
+            <p>
+                {% set total_marks = student.subject1 + student.subject2 + student.subject3 + student.subject4 +
+                student.subject5 + student.subject6 %}
+                {% set total_percentage = (total_marks / 600) * 100 %}
+
+                {% set pass_status = "Pass" %}
+
+                {% if student.subject1 < 35 or student.subject2 < 35 or student.subject3 < 35 or student.subject4 < 35
+                    or student.subject5 < 35 or student.subject6 < 35 %} {% set pass_status="Fail" %} {% endif %} <p>
+                    <strong>Total Percentage:</strong> {{ total_percentage|round(2) }}%</p>
+            <p class="{{ pass_status|lower }}"><strong>Status:</strong> {{ pass_status }}</p>
+            </p>
+        </div>
+
+        <div class="buttons">
+            <button onclick="window.print()">Print</button>
+            <a href="javascript:history.back()" class="back-button">Back</a>
+        </div>
+    </div>
+
+</body>
+
+</html>
